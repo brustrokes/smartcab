@@ -99,7 +99,7 @@ class LearningAgent(Agent):
         # Set the agent state and default action
         self.state = state
         self.next_waypoint = self.planner.next_waypoint()
-        action = None
+        action = random.choice(self.valid_actions) 
 
         ########### 
         ## TO DO ##
@@ -149,7 +149,7 @@ def run():
     #   verbose     - set to True to display additional output from the simulation
     #   num_dummies - discrete number of dummy agents in the environment, default is 100
     #   grid_size   - discrete number of intersections (columns, rows), default is (8, 6)
-    env = Environment(grid_size=[7,4])
+    env = Environment(grid_size=[8,6])
     
     ##############
     # Create the driving agent
@@ -163,7 +163,7 @@ def run():
     # Follow the driving agent
     # Flags:
     #   enforce_deadline - set to True to enforce a deadline metric
-    env.set_primary_agent(agent)
+    env.set_primary_agent(agent,True)
 
     ##############
     # Create the simulation
