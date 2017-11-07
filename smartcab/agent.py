@@ -47,8 +47,7 @@ class LearningAgent(Agent):
 			#questao 6
             #self.epsilon = self.epsilon - 0.05
 			#questao 7
-            self.epsilon = 0.999**self.counter
-            
+            self.epsilon =  0.993**self.counter
 			
         return None
 
@@ -111,7 +110,7 @@ class LearningAgent(Agent):
         #   Then, for each action available, set the initial Q-value to 0.0
 
         return
-
+		
 
     def choose_action(self, state):
         """ The choose_action function is called when the agent is asked to choose
@@ -122,6 +121,8 @@ class LearningAgent(Agent):
         self.next_waypoint = self.planner.next_waypoint()
         action = None#random.choice(self.valid_actions) 
 
+		
+		
         ########### 
         ## TO DO ##
         ###########
@@ -153,7 +154,8 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-
+        if self.learning:
+			self.Q[state][action] = self.Q[state][action] + self.alpha*(reward-self.Q[state][action])
         return
 
 
@@ -190,7 +192,7 @@ def run():
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
 
-    agent = env.create_agent(LearningAgent, learning=True, epsilon=1.0, alpha=0.5)
+    agent = env.create_agent(LearningAgent, learning=True, epsilon=1.0, alpha=0.01)
     
     ##############
     # Follow the driving agent
